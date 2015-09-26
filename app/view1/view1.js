@@ -1,14 +1,34 @@
-'use strict';
+angular.module('myApp.view1', []).controller('View1Ctrl', function($scope) {
 
-angular.module('myApp.view1', ['ngRoute'])
+  $scope.char = "0";
+  $scope.innerchar = "0";
 
-.config(['$routeProvider', function($routeProvider) {
-  $routeProvider.when('/view1', {
-    templateUrl: 'view1/view1.html',
-    controller: 'View1Ctrl'
-  });
-}])
+  $scope.onClickButton = function(value){
+    if($scope.char=='0'){
+      $scope.char = '';
+      $scope.innerchar = '';
+    }
+    if(value == '='){
+      $scope.char = eval($scope.innerchar);
+      return;
+    }
+    if (value == 'x') {
+      $scope.innerchar += '*';
+      $scope.char += value;
+      return;
+    }
+    if (value == '÷') {
+      $scope.innerchar += '/';
+      $scope.char += value;
+      return;
+    }
+    $scope.innerchar += value;
+    $scope.char += value;
+  };
 
-.controller('View1Ctrl', [function() {
+  $scope.AC = function(){
+    $scope.char = '0';
+  } ;
 
-}]);
+
+});
